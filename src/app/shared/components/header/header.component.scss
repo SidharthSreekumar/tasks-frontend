@@ -1,7 +1,10 @@
+@import 'variables';
+
 .tasks-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding-inline: 2rem;
+  background-color: lighten($app-background, 5%);
 }
