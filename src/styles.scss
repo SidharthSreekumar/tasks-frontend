@@ -16,3 +16,33 @@ body {
   background-color: $app-background;
   color: $app-foreground;
 }
+
+/* Form styling */
+
+.tasks-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 50rem;
+
+  .mat-card-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+
+/* Mat snackbar styling */
+
+.mat-snack-bar-container {
+  &.success {
+    background-color: #c5ffc5;
+  }
+  &.error {
+    background-color: rgb(255, 132, 101)
+  }
+}
