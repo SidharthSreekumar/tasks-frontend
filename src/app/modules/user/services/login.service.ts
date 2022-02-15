@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, shareReplay } from 'rxjs';
 import { SessionResponse } from 'src/app/core/models/session-response.model';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
@@ -12,10 +12,11 @@ export class LoginService {
   ) {}
 
   login(payload: any) {
-    return this.http.post('/api/session', payload).pipe(
-      map((res: SessionResponse) => {
-        this.authenticationService.setTokens(res);
-      })
+    return this.http.post<SessionResponse>('/api/session', payload).pipe(
+      map((tokens: SessionResponse) => {
+        this.authenticationService.setTokens(tokens);
+      }),
+      shareReplay()
     );
   }
 }

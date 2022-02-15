@@ -1,20 +1,39 @@
 import { Injectable } from '@angular/core';
-import { LocalStorage } from 'ngx-webstorage';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { LocalStorageService } from 'ngx-webstorage';
 import { SessionResponse } from '../models/session-response.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthenticationService {
-  @LocalStorage('access-token')
-  accessToken: string = '';
+  jwtService: any;
+  constructor(
+    private localStorageService: LocalStorageService,
+    private router: Router
+  ) {
+    this.jwtService = new JwtHelperService();
+  }
 
-  @LocalStorage('refresh-token')
-  refreshToken: string = '';
-  constructor() { }
+  setTokens(tokens: SessionResponse) {
+    this.localStorageService.store('access-token', tokens.accessToken);
+    this.localStorageService.store('refresh-token', tokens.refreshToken);
+  }
 
-  setTokens (tokens: SessionResponse) {
-    this.accessToken = tokens.accessToken;
-    this.refreshToken = tokens.refreshToken;
+  isAuthenticated(): boolean {
+    return !this.jwtService.isTokenExpired(
+      this.localStorageService.retrieve('access-token')
+    );
+  }
+
+  logout() {
+    this.wipeUserData();
+    this.router.navigateByUrl('/user/login');
+  }
+
+  wipeUserData() {
+    this.localStorageService.clear('access-token');
+    this.localStorageService.clear('refresh-token');
   }
 }

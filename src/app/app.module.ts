@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageNotFoundComponent } from './error-pages/page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -21,6 +23,7 @@ import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
       serverLogLevel: NgxLoggerLevel.ERROR,
       enableSourceMaps: true
     }),
+    NgxWebstorageModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     className: string = ''
   ): void {
     this.snackBar.open(message, buttonLabel, {
-      duration: 3000,
+      duration: 5000,
       panelClass: className,
       verticalPosition: 'top',
       horizontalPosition: 'center',
